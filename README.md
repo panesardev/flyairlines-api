@@ -1,7 +1,7 @@
 # Express api starter project
 
-✅ Serverless Vercel api
-✅ Typescript support
+✅ Serverless Vercel api\
+✅ Typescript support\
 ✅ OOP concept (optional)
 
 ## Scripts
