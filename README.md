@@ -2,7 +2,6 @@
 
 ✅ Serverless Vercel api\
 ✅ Typescript support\
-✅ OOP concept (optional)
 
 ## Scripts
 Development server
