@@ -2,6 +2,7 @@
 
 ✅ Serverless Vercel api\
 ✅ Typescript support\
+✅ Customizable logger
 
 ## Scripts
 Development server
