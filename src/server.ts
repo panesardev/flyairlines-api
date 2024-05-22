@@ -7,7 +7,7 @@ import { logger } from './logger';
 
 require('dotenv').config();
 
-export function getServer(): Express {
+export function createServer(): Express {
   const server = express();
   
   server.use(compression());

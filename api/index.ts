@@ -1,3 +1,6 @@
-import { getServer } from "../src/server";
+import { createServer } from "../src/server";
 
-export default getServer();
+const server = createServer();
+
+export default server;
+
