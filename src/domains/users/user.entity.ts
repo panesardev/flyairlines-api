@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Booking } from "../bookings/booking.entity";
 
-@Entity({ name: 'iota_users' })
+@Entity({ name: 'flyairlines_users' })
 export class User {
   @PrimaryGeneratedColumn()
   id?: number;
@@ -14,6 +15,9 @@ export class User {
   @Column()
   displayName: string;
   
+  @OneToMany(() => Booking, booking => booking.user)
+  bookings: Booking[];
+  
   @Column()
-  createdAt: Date;
+  created: Date;
 }

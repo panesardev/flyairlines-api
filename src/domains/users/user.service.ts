@@ -1,5 +1,5 @@
-import { UserRepository } from "../../database";
 import { User } from "./user.entity";
+import { UserRepository } from "./user.repository";
 
 export namespace UserService {
   export async function findById(id: User['id']): Promise<User> {
@@ -11,7 +11,7 @@ export namespace UserService {
   }
 
   export async function create(user: User): Promise<User> {
-    user.createdAt = new Date();
+    user.created = new Date();
     return await UserRepository.save(user);
   }
 
