@@ -23,3 +23,4 @@ export namespace App {
 
   AppDataSource.initialize();
 }
+
