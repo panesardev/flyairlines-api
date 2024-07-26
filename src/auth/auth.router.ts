@@ -1,12 +1,12 @@
 import { Request, Response, Router } from "express";
-import { AuthResponse, CreateAccountRequestBody, LoginRequestBody } from "./auth.interface";
+import { AuthResponse, CreateAccountRequest, LoginRequest } from "./auth.interface";
 import { AuthService } from "./auth.service";
 
 export namespace AuthRouter {
   export const router = Router();
 
   router.post('/login', async (request: Request, response: Response) => {
-    const body = request.body as LoginRequestBody;
+    const body = request.body as LoginRequest;
 
     const authResponse: AuthResponse = await AuthService.login(body)
       .then(token => ({ token, errored: false }))
@@ -16,7 +16,7 @@ export namespace AuthRouter {
   });
 
   router.post('/create-account', async (request: Request, response: Response) => {
-    const body = request.body as CreateAccountRequestBody;
+    const body = request.body as CreateAccountRequest;
 
     const authResponse: AuthResponse = await AuthService.createAccount(body)
       .then(token => ({ token, errored: false }))

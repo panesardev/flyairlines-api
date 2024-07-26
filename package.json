@@ -1,5 +1,5 @@
 {
-  "name": "iota-airlines-api",
+  "name": "flyairlines-api",
   "description": "Iota Airlines api",
   "version": "1.0.0",
   "author": {
@@ -9,7 +9,9 @@
   },
   "main": "index.ts",
   "scripts": {
-    "dev": "nodemon --exec ts-node index.ts"
+    "dev": "nodemon --exec ts-node index.ts",
+    "commit": "git add . && git commit -m refactor",
+    "push": "git push origin master"
   },
   "license": "ISC",
   "dependencies": {

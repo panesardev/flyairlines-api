@@ -1,10 +1,10 @@
 import { compare, hash } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { UserService } from '../domains/users/user.service';
-import { CreateAccountRequestBody, ExtendedJwtPayload, LoginRequestBody } from "./auth.interface";
+import { CreateAccountRequest, ExtendedJwtPayload, LoginRequest } from "./auth.interface";
 
 export namespace AuthService {
-  export async function login(body: LoginRequestBody): Promise<string> {
+  export async function login(body: LoginRequest): Promise<string> {
     const exists = await UserService.findByEmail(body.email);
     if (exists) {
       const doesPasswordMatch = await compare(body.password, exists.password);
@@ -19,7 +19,7 @@ export namespace AuthService {
     else throw Error('user not found');
   }
 
-  export async function createAccount(body: CreateAccountRequestBody): Promise<string> {
+  export async function createAccount(body: CreateAccountRequest): Promise<string> {
     const exists = await UserService.findByEmail(body.user.email);
     if (exists) throw Error('user already exists');
 

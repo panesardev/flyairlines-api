@@ -1,12 +1,12 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { User } from "../domains/users/user.entity";
 
-export interface LoginRequestBody {
+export interface LoginRequest {
   email: string;
   password: string;
 }
 
-export interface CreateAccountRequestBody {
+export interface CreateAccountRequest {
   user: User;
 }
 
