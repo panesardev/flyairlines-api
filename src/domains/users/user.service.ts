@@ -3,7 +3,9 @@ import { UserRepository } from "./user.repository";
 
 export namespace UserService {
   export async function findById(id: User['id']): Promise<User> {
-    return await UserRepository.findOneBy({ id });
+    const user = await UserRepository.findOneBy({ id });
+    const { password, ...rest } = user;
+    return rest;
   }
   
   export async function findByEmail(email: string): Promise<User> {
@@ -11,7 +13,6 @@ export namespace UserService {
   }
 
   export async function create(user: User): Promise<User> {
-    user.created = new Date();
     return await UserRepository.save(user);
   }
 

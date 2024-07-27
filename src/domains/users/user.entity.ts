@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Booking } from "../bookings/booking.entity";
 
-@Entity({ name: 'flyairlines_users' })
+@Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
   id?: number;
@@ -16,7 +16,7 @@ export class User {
   displayName: string;
   
   @OneToMany(() => Booking, booking => booking.user)
-  bookings: Booking[];
+  bookings?: Booking[];
   
   @Column()
   created: Date;

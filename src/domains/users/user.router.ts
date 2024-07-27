@@ -11,10 +11,7 @@ export namespace UserRouter {
     const id: User['id'] = Number(request.params.id);
 
     const userResponse: HttpResponse<User> = await UserService.findById(id)
-      .then(user => {
-        const { password, ...payload } = user;
-        return { payload, errored: false };
-      })
+      .then(user => ({ payload: user, errored: false }))
       .catch(e => ({ message: e.message, errored: true }));
 
     response.json(userResponse);

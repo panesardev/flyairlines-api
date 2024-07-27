@@ -1,9 +1,12 @@
 import compression from 'compression';
-import { debug } from 'console';
+import { debug } from './middlewares/debug';
 import cors from 'cors';
 import express from 'express';
+import { isAuthenticated } from './auth/auth.middleware';
+import { AuthRouter } from './auth/auth.router';
 import { AppDataSource } from './database';
-import { router } from './router';
+import { UserRouter } from './domains/users/user.router';
+import { DestinationRouter } from './domains/destinations/destination.router';
 
 export namespace App {
   export const server = express();
@@ -14,7 +17,11 @@ export namespace App {
 
   server.use(debug);
 
-  server.use('/', router);
+  server.use('/auth', AuthRouter.router);
+  server.use('/users', isAuthenticated, UserRouter.router);
+  server.use('/destinations', DestinationRouter.router);
 
   AppDataSource.initialize();
 }
+
+export default App.server;

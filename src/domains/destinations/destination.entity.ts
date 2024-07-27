@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity({ name: 'flyairlines_destinations' })
+@Entity({ name: 'destinations' })
 export class Destination {
   @PrimaryGeneratedColumn()
   id?: number;
@@ -8,6 +8,6 @@ export class Destination {
   @Column({ unique: true })
   code: string;
   
-  @Column()
+  @Column({ unique: true })
   name: string;
 }
