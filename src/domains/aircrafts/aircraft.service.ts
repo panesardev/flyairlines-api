@@ -1,3 +1,4 @@
+import { DeleteResult } from "typeorm";
 import { Aircraft } from "./aircraft.entity";
 import { AircraftRepository } from './aircraft.repository';
 
@@ -23,8 +24,8 @@ export namespace AircraftService {
     return await AircraftRepository.save(aircraft);
   } 
   
-  export async function remove(aircraft: Aircraft): Promise<Aircraft> {
-    if (!aircraft.id) throw Error('aircraft id required');
-    return await AircraftRepository.remove(aircraft);
-  } 
+  export async function remove(id: Aircraft['id']): Promise<DeleteResult> {
+    if (!id) throw Error('aircraft id required');
+    return await AircraftRepository.delete(id);
+  }
 }

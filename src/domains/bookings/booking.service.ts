@@ -1,3 +1,4 @@
+import { DeleteResult } from "typeorm";
 import { Booking } from "./booking.entity";
 import { BookingRepository } from './booking.repository';
 
@@ -19,8 +20,8 @@ export namespace BookingService {
     return await BookingRepository.save(booking);
   } 
   
-  export async function remove(booking: Booking): Promise<Booking> {
-    if (!booking.id) throw Error('booking id required');
-    return await BookingRepository.remove(booking);
-  } 
+  export async function remove(id: Booking['id']): Promise<DeleteResult> {
+    if (!id) throw Error('booking id required');
+    return await BookingRepository.delete(id);
+  }
 }

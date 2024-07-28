@@ -6,6 +6,9 @@ export class Flight {
   @PrimaryGeneratedColumn()
   id?: number;
 
+  @Column({ unique: true })
+  number: string;
+
   @OneToOne(() => Booking, booking => booking.flight)
   booking: Booking;
   
