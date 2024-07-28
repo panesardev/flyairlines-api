@@ -6,6 +6,11 @@ import { DestinationService } from "./destination.service";
 export namespace DestinationRouter {
   export const router = Router();
 
+  router.get('/create', async (request: Request, response: Response) => {
+    const res = await DestinationService.create();
+    response.json(res);
+  });
+  
   router.get('/', async (request: Request, response: Response) => {
     const destinationsResponse: HttpResponse<Destination[]> = await DestinationService.findAll()
       .then(destinations => ({ payload: destinations, errored: false }))

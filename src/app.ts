@@ -1,16 +1,19 @@
 import compression from 'compression';
-import { debug } from './middlewares/debug';
 import cors from 'cors';
 import express from 'express';
-import { isAuthenticated } from './auth/auth.middleware';
 import { AuthRouter } from './auth/auth.router';
 import { AppDataSource } from './database';
-import { UserRouter } from './domains/users/user.router';
+import { AircraftRouter } from './domains/aircrafts/aircraft.router';
+import { BookingRouter } from './domains/bookings/booking.router';
 import { DestinationRouter } from './domains/destinations/destination.router';
+import { FlightRouter } from './domains/flights/flight.router';
+import { PassengerRouter } from './domains/passengers/passenger.router';
+import { UserRouter } from './domains/users/user.router';
+import { debug } from './middlewares/debug';
 
 export namespace App {
   export const server = express();
-  
+
   server.use(compression());
   server.use(cors());
   server.use(express.json());
@@ -18,8 +21,12 @@ export namespace App {
   server.use(debug);
 
   server.use('/auth', AuthRouter.router);
-  server.use('/users', isAuthenticated, UserRouter.router);
+  server.use('/aircrafts', AircraftRouter.router);
+  server.use('/bookings', BookingRouter.router);
   server.use('/destinations', DestinationRouter.router);
+  server.use('/flights', FlightRouter.router);
+  server.use('/passengers', PassengerRouter.router);
+  server.use('/users', UserRouter.router);
 
   AppDataSource.initialize();
 }

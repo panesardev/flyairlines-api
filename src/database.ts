@@ -5,6 +5,7 @@ import { Booking } from './domains/bookings/booking.entity';
 import { Destination } from './domains/destinations/destination.entity';
 import { Passenger } from './domains/passengers/passenger.entity';
 import { User } from './domains/users/user.entity';
+import { Flight } from './domains/flights/flight.entity';
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -17,5 +18,6 @@ export const AppDataSource = new DataSource({
     Aircraft, 
     Destination,
     Passenger,
+    Flight,
   ],
 });

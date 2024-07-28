@@ -1,6 +1,10 @@
 import { Destination } from "./destination.entity";
 
 export const destinations: Destination[] = [
+  {
+    name: 'Abbotsford',
+    code: 'YXX'
+  },
   { 
     name: 'Calgary',
     code: 'YYC',

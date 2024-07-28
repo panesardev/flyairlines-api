@@ -9,7 +9,7 @@
   "main": "index.ts",
   "scripts": {
     "dev": "nodemon --exec ts-node index.ts",
-    "commit": "git add . && git commit -m refactor",
+    "git": "git add . && git commit -m refactor",
     "push": "git push origin master"
   },
   "license": "ISC",

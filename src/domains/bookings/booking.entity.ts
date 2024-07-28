@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "../users/user.entity";
 import { Passenger } from "../passengers/passenger.entity";
+import { Flight } from "../flights/flight.entity";
 
 @Entity({ name: 'bookings' })
 export class Booking {
@@ -13,18 +14,9 @@ export class Booking {
   @OneToMany(() => Passenger, passenger => passenger.booking)
   passengers: Passenger[];
 
-  @Column()
-  fromDestinationId: number;
+  @OneToOne(() => Flight, flight => flight.booking)
+  flight: Flight;
   
-  @Column()
-  toDestinationId: number;
-
-  @Column()
-  aircraftId: number;
-  
-  @Column()
-  time: Date;
-
   @Column()
   created: Date;
 

@@ -6,10 +6,7 @@ export class Aircraft {
   id?: number;
   
   @Column()
-  name: string;
-  
-  @Column()
-  number: string;
+  model: string;
 
   @Column()
   capacity: number;
