@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import { AuthRouter } from './auth/auth.router';
 import { AppDataSource } from './database';
-import { AircraftRouter } from './domains/aircrafts/aircraft.router';
+import { AircraftRouter } from './domains/aircraft/aircraft.router';
 import { BookingRouter } from './domains/bookings/booking.router';
 import { DestinationRouter } from './domains/destinations/destination.router';
 import { FlightRouter } from './domains/flights/flight.router';
@@ -21,7 +21,7 @@ export namespace App {
   server.use(debug);
 
   server.use('/auth', AuthRouter.router);
-  server.use('/aircrafts', AircraftRouter.router);
+  server.use('/aircraft', AircraftRouter.router);
   server.use('/bookings', BookingRouter.router);
   server.use('/destinations', DestinationRouter.router);
   server.use('/flights', FlightRouter.router);

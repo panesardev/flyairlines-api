@@ -2,7 +2,6 @@ import { Request, Response, Router } from "express";
 import { HttpResponse } from "../../interfaces/http.interface";
 import { Aircraft } from "./aircraft.entity";
 import { AircraftService } from "./aircraft.service";
-import { DeleteResult } from "typeorm";
 
 export namespace AircraftRouter {
   export const router = Router();
@@ -48,8 +47,8 @@ export namespace AircraftRouter {
   router.delete('/:id', async (request: Request, response: Response) => {
     const id: number = Number(request.params.id);
 
-    const deleteResponse: HttpResponse<DeleteResult> = await AircraftService.remove(id)
-      .then(result => ({ payload: result, errored: false }))
+    const deleteResponse: HttpResponse<boolean> = await AircraftService.remove(id)
+      .then(() => ({ payload: true, errored: false }))
       .catch(e => ({ message: e.message, errored: true }));
 
     response.json(deleteResponse);
