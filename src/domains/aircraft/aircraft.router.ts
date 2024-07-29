@@ -2,6 +2,8 @@ import { Request, Response, Router } from "express";
 import { HttpResponse } from "../../interfaces/http.interface";
 import { Aircraft } from "./aircraft.entity";
 import { AircraftService } from "./aircraft.service";
+import { isAuthenticated } from "../../auth/auth.middleware";
+import { isAdmin } from "../../admin/admin.middleware";
 
 export namespace AircraftRouter {
   export const router = Router();
@@ -24,7 +26,7 @@ export namespace AircraftRouter {
     response.json(aircraftResponse);
   });
   
-  router.post('/', async (request: Request, response: Response) => {
+  router.post('/', isAuthenticated, isAdmin, async (request: Request, response: Response) => {
     const aircraft: Aircraft = request.body.aircraft as Aircraft;
 
     const aircraftResponse: HttpResponse<Aircraft> = await AircraftService.create(aircraft)
@@ -34,7 +36,7 @@ export namespace AircraftRouter {
     response.json(aircraftResponse);
   });
   
-  router.patch('/', async (request: Request, response: Response) => {
+  router.patch('/', isAuthenticated, isAdmin, async (request: Request, response: Response) => {
     const aircraft: Aircraft = request.body.aircraft as Aircraft;
 
     const aircraftResponse: HttpResponse<Aircraft> = await AircraftService.update(aircraft)
@@ -44,7 +46,7 @@ export namespace AircraftRouter {
     response.json(aircraftResponse);
   });
   
-  router.delete('/:id', async (request: Request, response: Response) => {
+  router.delete('/:id', isAuthenticated, isAdmin, async (request: Request, response: Response) => {
     const id: number = Number(request.params.id);
 
     const deleteResponse: HttpResponse<boolean> = await AircraftService.remove(id)

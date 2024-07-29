@@ -2,6 +2,8 @@ import { Request, Response, Router } from "express";
 import { HttpResponse } from "../../interfaces/http.interface";
 import { Destination } from "./destination.entity";
 import { DestinationService } from "./destination.service";
+import { isAuthenticated } from "../../auth/auth.middleware";
+import { isAdmin } from "../../admin/admin.middleware";
 
 export namespace DestinationRouter {
   export const router = Router();
@@ -24,7 +26,7 @@ export namespace DestinationRouter {
     response.json(destinationResponse);
   });
   
-  router.post('/', async (request: Request, response: Response) => {
+  router.post('/', isAuthenticated, isAdmin, async (request: Request, response: Response) => {
     const destination: Destination = request.body.destination as Destination;
 
     const destinationResponse: HttpResponse<Destination> = await DestinationService.create(destination)
@@ -34,7 +36,7 @@ export namespace DestinationRouter {
     response.json(destinationResponse);
   });
   
-  router.patch('/', async (request: Request, response: Response) => {
+  router.patch('/', isAuthenticated, isAdmin, async (request: Request, response: Response) => {
     const destination: Destination = request.body.destination as Destination;
 
     const destinationResponse: HttpResponse<Destination> = await DestinationService.update(destination)
@@ -44,7 +46,7 @@ export namespace DestinationRouter {
     response.json(destinationResponse);
   });
   
-  router.delete('/:id', async (request: Request, response: Response) => {
+  router.delete('/:id', isAuthenticated, isAdmin, async (request: Request, response: Response) => {
     const id: number = Number(request.params.id);
 
     const deleteResponse: HttpResponse<boolean> = await DestinationService.remove(id)
