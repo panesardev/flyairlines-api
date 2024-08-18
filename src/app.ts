@@ -15,7 +15,7 @@ export namespace App {
   export const server = express();
 
   server.use(compression());
-  server.use(cors());
+  server.use(cors({ allowedHeaders: 'Access-Control-Allow-Origin' }));
   server.use(express.json());
 
   server.use(debug);
