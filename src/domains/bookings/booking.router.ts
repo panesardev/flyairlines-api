@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 import { HttpResponse } from "../../interfaces/http.interface";
 import { Booking } from "./booking.entity";
 import { BookingService } from "./booking.service";
+import { isAuthenticated } from "../../auth/auth.middleware";
 
 export namespace BookingRouter {
   export const router = Router();
@@ -24,8 +25,8 @@ export namespace BookingRouter {
     response.json(bookingsResponse);
   });
 
-  router.post('/', async (request: Request, response: Response) => {
-    const booking: Booking = request.body.booking as Booking;
+  router.post('/', isAuthenticated, async (request: Request, response: Response) => {
+    const booking: Booking = request.body as Booking;
 
     const bookingResponse: HttpResponse<Booking> = await BookingService.create(booking)
       .then(booking => ({ payload: booking, errored: false }))
@@ -34,8 +35,8 @@ export namespace BookingRouter {
     response.json(bookingResponse);
   });
   
-  router.patch('/', async (request: Request, response: Response) => {
-    const booking: Booking = request.body.booking as Booking;
+  router.patch('/:id', async (request: Request, response: Response) => {
+    const booking: Booking = request.body as Booking;
 
     const bookingResponse: HttpResponse<Booking> = await BookingService.update(booking)
       .then(booking => ({ payload: booking, errored: false }))

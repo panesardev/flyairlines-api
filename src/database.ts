@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { DataSource } from "typeorm";
-import { Aircraft } from './domains/aircraft/aircraft.entity';
+import { Airplane } from './domains/airplanes/airplane.entity';
 import { Booking } from './domains/bookings/booking.entity';
 import { Destination } from './domains/destinations/destination.entity';
+import { Flight } from './domains/flights/flight.entity';
 import { Passenger } from './domains/passengers/passenger.entity';
 import { User } from './domains/users/user.entity';
-import { Flight } from './domains/flights/flight.entity';
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -15,7 +15,7 @@ export const AppDataSource = new DataSource({
   entities: [
     User, 
     Booking, 
-    Aircraft, 
+    Airplane, 
     Destination,
     Passenger,
     Flight,

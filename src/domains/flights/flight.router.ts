@@ -25,7 +25,7 @@ export namespace FlightRouter {
   });
   
   router.post('/', async (request: Request, response: Response) => {
-    const flight: Flight = request.body.flight as Flight;
+    const flight: Flight = request.body as Flight;
 
     const flightResponse: HttpResponse<Flight> = await FlightService.create(flight)
       .then(flight => ({ payload: flight, errored: false }))
@@ -34,8 +34,8 @@ export namespace FlightRouter {
     response.json(flightResponse);
   });
   
-  router.patch('/', async (request: Request, response: Response) => {
-    const flight: Flight = request.body.flight as Flight;
+  router.patch('/:id', async (request: Request, response: Response) => {
+    const flight: Flight = request.body as Flight;
 
     const flightResponse: HttpResponse<Flight> = await FlightService.update(flight)
       .then(flight => ({ payload: flight, errored: false }))

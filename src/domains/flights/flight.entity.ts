@@ -1,17 +1,27 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Booking } from "../bookings/booking.entity";
+import { Passenger } from "../passengers/passenger.entity";
 
 @Entity({ name: 'flights' })
 export class Flight {
   @PrimaryGeneratedColumn()
   id?: number;
-
-  @Column({ unique: true })
-  number: string;
+  
+  @OneToMany(() => Passenger, passenger => passenger.flight)
+  passengers: Passenger[];
 
   @OneToOne(() => Booking, booking => booking.flight)
   booking: Booking;
   
+  @Column()
+  airplaneModel: string;
+  
+  @Column()
+  isRoundTrip: boolean;
+
+  @Column({ unique: true })
+  number: string;
+
   @Column()
   fromDestinationCode: string;
   
@@ -19,8 +29,5 @@ export class Flight {
   toDestinationCode: string;
   
   @Column()
-  date: Date;
-  
-  @Column()
-  aircraftId: number;
+  date: string;
 }

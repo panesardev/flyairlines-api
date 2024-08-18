@@ -27,7 +27,7 @@ export namespace DestinationRouter {
   });
   
   router.post('/', isAuthenticated, isAdmin, async (request: Request, response: Response) => {
-    const destination: Destination = request.body.destination as Destination;
+    const destination: Destination = request.body as Destination;
 
     const destinationResponse: HttpResponse<Destination> = await DestinationService.create(destination)
       .then(destination => ({ payload: destination, errored: false }))
@@ -36,8 +36,8 @@ export namespace DestinationRouter {
     response.json(destinationResponse);
   });
   
-  router.patch('/', isAuthenticated, isAdmin, async (request: Request, response: Response) => {
-    const destination: Destination = request.body.destination as Destination;
+  router.patch('/:id', isAuthenticated, isAdmin, async (request: Request, response: Response) => {
+    const destination: Destination = request.body as Destination;
 
     const destinationResponse: HttpResponse<Destination> = await DestinationService.update(destination)
       .then(destination => ({ payload: destination, errored: false }))

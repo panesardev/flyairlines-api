@@ -25,7 +25,7 @@ export namespace PassengerRouter {
   });
   
   router.post('/', async (request: Request, response: Response) => {
-    const passenger: Passenger = request.body.passenger as Passenger;
+    const passenger: Passenger = request.body as Passenger;
 
     const passengerResponse: HttpResponse<Passenger> = await PassengerService.create(passenger)
       .then(passenger => ({ payload: passenger, errored: false }))
@@ -34,8 +34,8 @@ export namespace PassengerRouter {
     response.json(passengerResponse);
   });
   
-  router.patch('/', async (request: Request, response: Response) => {
-    const passenger: Passenger = request.body.passenger as Passenger;
+  router.patch('/:id', async (request: Request, response: Response) => {
+    const passenger: Passenger = request.body as Passenger;
 
     const passengerResponse: HttpResponse<Passenger> = await PassengerService.update(passenger)
       .then(passenger => ({ payload: passenger, errored: false }))

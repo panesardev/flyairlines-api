@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity({ name: 'aircraft' })
-export class Aircraft {
+@Entity({ name: 'airplanes' })
+export class Airplane {
   @PrimaryGeneratedColumn()
   id?: number;
   
@@ -13,6 +13,9 @@ export class Aircraft {
   
   @Column()
   occupied: number;
+
+  @Column()
+  price: number;
   
   @Column()
   isBooked: boolean;

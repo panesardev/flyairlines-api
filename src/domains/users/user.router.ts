@@ -16,4 +16,24 @@ export namespace UserRouter {
 
     response.json(userResponse);
   });
+  
+  router.patch('/:id', isAuthenticated, isOwner, async (request: Request, response: Response) => {
+    const user: User = request.body as User;
+
+    const userResponse: HttpResponse<User> = await UserService.update(user)
+      .then(user => ({ payload: user, errored: false }))
+      .catch(e => ({ message: e.message, errored: true }));
+
+    response.json(userResponse);
+  });
+  
+  router.delete('/:id', isAuthenticated, isOwner, async (request: Request, response: Response) => {
+    const id: number = Number(request.params.id);
+
+    const deleteResponse: HttpResponse<boolean> = await UserService.remove(id)
+      .then(() => ({ payload: true, errored: false }))
+      .catch(e => ({ message: e.message, errored: true }));
+
+    response.json(deleteResponse);
+  });
 }

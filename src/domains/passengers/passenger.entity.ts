@@ -1,23 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { Booking } from "../bookings/booking.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Flight } from "../flights/flight.entity";
 
 @Entity({ name: 'passengers' })
 export class Passenger {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @ManyToOne(() => Booking, booking => booking.passengers)
-  booking: Booking
+  @ManyToOne(() => Flight, flight => flight.passengers)
+  flight: Flight;
   
   @Column()
-  firstName: string;
-  
-  @Column()
-  lastName: string;
+  displayName: string;
 
   @Column()
   email: string;
-  
-  @Column()
-  passportNumber: string;
 }
