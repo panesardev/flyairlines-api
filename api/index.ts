@@ -1,6 +1,5 @@
 import { App } from "../src/app";
-import { config } from 'dotenv';
 
-config();
+require('dotenv').config();
 
 export default App.server;
