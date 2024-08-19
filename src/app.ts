@@ -30,3 +30,5 @@ export namespace App {
 
   AppDataSource.initialize();
 }
+
+export default App.server;
