@@ -14,17 +14,13 @@ import { debug } from './middlewares/debug';
 export class App {
   private express = express();
 
-  run(port: number) {
-    this.getExpress().listen(port, () => console.log(`Server running at PORT:${port}`));
-  }
-
-  getExpress() {
+  async getExpress() {
     this.express.use(compression());
     this.express.use(cors());
     this.express.use(express.json());
     this.express.use(debug);
     
-    AppDataSource.initialize();
+    await AppDataSource.initialize();
 
     this.express.get('/', (req, res) => {
       res.json({
@@ -43,4 +39,8 @@ export class App {
     return this.express;
   }
 
+  async run(port: number) {
+    const server = await this.getExpress();
+    server.listen(port, () => console.log(`Server running at PORT:${port}`));
+  }
 }
