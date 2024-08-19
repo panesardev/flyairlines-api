@@ -14,10 +14,11 @@ import { debug } from './middlewares/debug';
 export namespace App {
   export const server = express();
 
+  AppDataSource.initialize();
+
   server.use(compression());
   server.use(cors());
   server.use(express.json());
-
   server.use(debug);
 
   server.use('/auth', AuthRouter.router);
@@ -27,6 +28,4 @@ export namespace App {
   server.use('/flights', FlightRouter.router);
   server.use('/passengers', PassengerRouter.router);
   server.use('/users', UserRouter.router);
-
-  AppDataSource.initialize();
 }
