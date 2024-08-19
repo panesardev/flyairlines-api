@@ -10,7 +10,6 @@ import { User } from './domains/users/user.entity';
 export const AppDataSource = new DataSource({
   type: "postgres",
   url: process.env.POSTGRES_URL,
-  synchronize: true,
   entityPrefix: 'flyairlines_',
   entities: [
     User, 

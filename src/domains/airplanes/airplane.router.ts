@@ -2,8 +2,7 @@ import { Request, Response, Router } from "express";
 import { HttpResponse } from "../../interfaces/http.interface";
 import { Airplane } from "./airplane.entity";
 import { AirplaneService } from "./airplane.service";
-import { isAuthenticated } from "../../auth/auth.middleware";
-import { isAdmin } from "../../admin/admin.middleware";
+import { isAdmin, isAuthenticated } from "../../auth/auth.middleware";
 
 export namespace AirplaneRouter {
   export const router = Router();

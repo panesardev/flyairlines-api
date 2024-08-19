@@ -2,8 +2,7 @@ import { Request, Response, Router } from "express";
 import { HttpResponse } from "../../interfaces/http.interface";
 import { Destination } from "./destination.entity";
 import { DestinationService } from "./destination.service";
-import { isAuthenticated } from "../../auth/auth.middleware";
-import { isAdmin } from "../../admin/admin.middleware";
+import { isAdmin, isAuthenticated } from "../../auth/auth.middleware";
 
 export namespace DestinationRouter {
   export const router = Router();
