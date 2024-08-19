@@ -12,6 +12,7 @@ import { UserRouter } from './domains/users/user.router';
 import { debug } from './middlewares/debug';
 
 const server = express();
+const PORT = Number(process.env.port) || 3000;
 
 AppDataSource.initialize();
 
@@ -33,5 +34,7 @@ server.use('/destinations', DestinationRouter.router);
 server.use('/flights', FlightRouter.router);
 server.use('/passengers', PassengerRouter.router);
 server.use('/users', UserRouter.router);
+
+server.listen(PORT, () => console.log(`Server running at PORT:${PORT}`));
 
 export { server };
