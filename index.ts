@@ -1,6 +1,7 @@
 require('dotenv').config();
 
-import { server } from "./src/server";
+import { App } from "./src/app";
 
-export default server;
+const PORT = Number(process.env.port) || 3000;
 
+new App().run(PORT);
