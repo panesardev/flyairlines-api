@@ -20,6 +20,12 @@ server.use(cors());
 server.use(express.json());
 server.use(debug);
 
+server.get('/', (req, res) => {
+  res.json({
+    message: 'hello world',
+  });
+});
+
 server.use('/auth', AuthRouter.router);
 server.use('/airplanes', AirplaneRouter.router);
 server.use('/bookings', BookingRouter.router);
