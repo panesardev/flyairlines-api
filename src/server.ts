@@ -11,21 +11,21 @@ import { PassengerRouter } from './domains/passengers/passenger.router';
 import { UserRouter } from './domains/users/user.router';
 import { debug } from './middlewares/debug';
 
-export namespace App {
-  export const server = express();
+const server = express();
 
-  AppDataSource.initialize();
+AppDataSource.initialize();
 
-  server.use(compression());
-  server.use(cors());
-  server.use(express.json());
-  server.use(debug);
+server.use(compression());
+server.use(cors());
+server.use(express.json());
+server.use(debug);
 
-  server.use('/auth', AuthRouter.router);
-  server.use('/airplanes', AirplaneRouter.router);
-  server.use('/bookings', BookingRouter.router);
-  server.use('/destinations', DestinationRouter.router);
-  server.use('/flights', FlightRouter.router);
-  server.use('/passengers', PassengerRouter.router);
-  server.use('/users', UserRouter.router);
-}
+server.use('/auth', AuthRouter.router);
+server.use('/airplanes', AirplaneRouter.router);
+server.use('/bookings', BookingRouter.router);
+server.use('/destinations', DestinationRouter.router);
+server.use('/flights', FlightRouter.router);
+server.use('/passengers', PassengerRouter.router);
+server.use('/users', UserRouter.router);
+
+export { server };

@@ -1,7 +1,7 @@
 require('dotenv').config();
 
-import { App } from "./src/app";
+import { server } from "./src/server";
 
 const PORT = Number(process.env.port) || 3000;
 
-App.server.listen(PORT, () => console.log(`Server running at PORT:${PORT}`));
+server.listen(PORT, () => console.log(`Server running at PORT:${PORT}`));
