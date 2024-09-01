@@ -18,11 +18,11 @@ router.use('/flights', FlightRouter.router);
 router.use('/bookings', BookingRouter.router);
 router.use('/destinations', DestinationRouter.router);
 
-router.get('/', (request: Request, response: Response) => {
+router.use('/', (request: Request, response: Response) => {
   response.json({ message: 'hello world' });
 });
 
-router.all('*', (request: Request, response: Response) => {
+router.use('*', (request: Request, response: Response) => {
   response.status(404).json({ message: 'not found' });
 });
 
