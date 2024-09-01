@@ -19,5 +19,8 @@ export class User {
   bookings?: Booking[];
   
   @Column()
+  verified?: boolean;
+
+  @Column()
   created: Date;
 }

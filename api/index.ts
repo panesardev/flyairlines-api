@@ -1,5 +1,5 @@
 require('dotenv').config();
 
-import { App } from "../src/app";
+import { server } from '../src/server';
 
-export default new App().getExpress();
+export default server;

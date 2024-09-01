@@ -1,51 +1,57 @@
-import { Request, Response } from "express";
-import { verify } from 'jsonwebtoken';
+import { NextFunction, Request, Response } from "express";
+import jwt from 'jsonwebtoken';
 import { ExtendedJwtPayload } from "../auth/auth.interface";
 import { UserService } from "../domains/users/user.service";
 
-export function isAuthenticated(request: Request, response: Response, next: () => void) {
-  const authHeader = request.headers.authorization;
+export function isAuthenticated() {
+  return (request: Request, response: Response, next: NextFunction) => {
+    const authHeader = request.headers.authorization;
+    
+    if (!authHeader || !authHeader.startsWith('Bearer')) {
+      return response.status(401).json({ message: 'unauthorized' });
+    }
+    
+    const token = authHeader.split(' ')[1];
   
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return response.status(401).json({ message: 'Unauthorized' });
-  }
-  
-  const token = authHeader.split(' ')[1];
+    try {
+      request.body.decoded = jwt.verify(token, process.env.JWT_SECRET) as ExtendedJwtPayload;
 
-  try {
-    const decoded = verify(token, process.env.JWT_SECRET) as ExtendedJwtPayload;
-    request.body.decoded = decoded;
-    next();
+      next();
+    } 
+    catch (e) {
+      console.log('[ERROR] auth.middleware.ts: ', e.message);
+      response.status(401).json({ message: 'unauthorized' });
+    }
+  }
+}
+
+export function isOwner() {
+  return (request: Request, response: Response, next: NextFunction) => {
+    const decoded = request.body.decoded as ExtendedJwtPayload;
+    
+    if (decoded && decoded.userId === Number(request.params.id)) {
+      next();
+    }
+    else {
+      response.status(403).json({ message: 'forbidden' });
+    }
   } 
-  catch (e) {
-    console.log('[ERROR] auth.middleware.ts: ', e.message);
-    response.status(403).json({ message: 'Forbidden' });
-  }
 }
 
-export function isOwner(request: Request, response: Response, next: () => void) {
-  const decoded = request.body.decoded as ExtendedJwtPayload;
+export function isAdmin() {
+  return async (request: Request, response: Response, next: () => void) => {
+    const decoded = request.body.decoded as ExtendedJwtPayload;
   
-  if (decoded.userId === Number(request.params.id)) {
+    if (!decoded) {
+      return response.status(403).json({ message: 'Forbidden' });
+    }
+  
+    const user = await UserService.findById(decoded.userId);
+  
+    if (user.email !== process.env.ADMIN) {
+      return response.status(403).json({ message: 'Forbidden' });
+    }
+  
     next();
-  }
-  else {
-    response.status(403).json({ message: 'Forbidden' });
-  }
-}
-
-export async function isAdmin(request: Request, response: Response, next: () => void) {
-  const decoded = request.body.decoded as ExtendedJwtPayload;
-
-  if (!decoded) {
-    return response.status(403).json({ message: 'Forbidden' });
-  }
-
-  const user = await UserService.findById(decoded.userId);
-
-  if (user.email !== process.env.ADMIN) {
-    return response.status(403).json({ message: 'Forbidden' });
-  }
-
-  next();
+  }  
 }

@@ -13,6 +13,12 @@ export interface CreateAccountRequestBody {
   confirmPassword: string;
 }
 
+export type Token = string; 
+
+export interface AdminRequestBody {
+  email: string;
+}
+
 export interface ExtendedJwtPayload extends JwtPayload {
   userId: User['id'];
 }

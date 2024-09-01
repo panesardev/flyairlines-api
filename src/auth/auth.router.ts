@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { CreateAccountRequestBody, LoginRequestBody } from "./auth.interface";
+import { CreateAccountRequestBody, AdminRequestBody, LoginRequestBody, Token } from "./auth.interface";
 import { AuthService } from "./auth.service";
 import { HttpResponse } from "../interfaces/http.interface";
 
@@ -9,8 +9,8 @@ export namespace AuthRouter {
   router.post('/login', async (request: Request, response: Response) => {
     const body = request.body as LoginRequestBody;
 
-    const tokenResponse: HttpResponse<string> = await AuthService.login(body)
-      .then(token => ({ payload: token, errored: false }) as HttpResponse<string>)
+    const tokenResponse: HttpResponse<Token> = await AuthService.login(body)
+      .then(body => ({ payload: body, errored: false }) as HttpResponse<Token>)
       .catch(e => ({ errored: true, message: e.message }));
 
     response.json(tokenResponse);
@@ -19,10 +19,20 @@ export namespace AuthRouter {
   router.post('/create-account', async (request: Request, response: Response) => {
     const body = request.body as CreateAccountRequestBody;
 
-    const tokenResponse: HttpResponse<string> = await AuthService.createAccount(body)
-      .then(token => ({ payload: token, errored: false }) as HttpResponse<string>)
+    const tokenResponse: HttpResponse<Token> = await AuthService.createAccount(body)
+      .then(body => ({ payload: body, errored: false }) as HttpResponse<Token>)
       .catch(e => ({ errored: true, message: e.message }));
 
     response.json(tokenResponse);
+  });
+
+  router.post('/is-admin', async (request: Request, response: Response) => {
+    const body = request.body as AdminRequestBody;
+
+    const adminResponse: HttpResponse<boolean> = {
+      payload: body.email === process.env.ADMIN,
+    }
+
+    response.json(adminResponse);
   });
 }
