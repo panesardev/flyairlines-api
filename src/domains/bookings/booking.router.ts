@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { HttpResponse } from "../../interfaces/http.interface";
+import { HttpResponse } from "../../interfaces/http-response.interface";
 import { Booking } from "./booking.entity";
 import { BookingService } from "./booking.service";
 import { isAuthenticated } from "../../auth/auth.middleware";

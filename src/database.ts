@@ -6,11 +6,11 @@ import { Destination } from './domains/destinations/destination.entity';
 import { Flight } from './domains/flights/flight.entity';
 import { Passenger } from './domains/passengers/passenger.entity';
 import { User } from './domains/users/user.entity';
+import { POSTGRES_URL } from './constants/env';
 
 export const AppDataSource = new DataSource({
-  synchronize: true,
-  type: "postgres",
-  url: process.env.POSTGRES_URL,
+  type: 'postgres',
+  url: POSTGRES_URL,
   entityPrefix: 'flyairlines_',
   entities: [
     User, 

@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken';
 import { ExtendedJwtPayload } from "../auth/auth.interface";
 import { UserService } from "../domains/users/user.service";
+import { ADMIN, JWT_SECRET } from "../constants/env";
 
 export function isAuthenticated() {
   return (request: Request, response: Response, next: NextFunction) => {
@@ -14,7 +15,7 @@ export function isAuthenticated() {
     const token = authHeader.split(' ')[1];
   
     try {
-      request.body.decoded = jwt.verify(token, process.env.JWT_SECRET) as ExtendedJwtPayload;
+      request.body.decoded = jwt.verify(token, JWT_SECRET) as ExtendedJwtPayload;
 
       next();
     } 
@@ -48,7 +49,7 @@ export function isAdmin() {
   
     const user = await UserService.findById(decoded.userId);
   
-    if (user.email !== process.env.ADMIN) {
+    if (user.email !== ADMIN) {
       return response.status(403).json({ message: 'Forbidden' });
     }
   

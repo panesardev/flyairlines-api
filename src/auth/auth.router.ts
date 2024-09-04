@@ -1,7 +1,8 @@
 import { Request, Response, Router } from "express";
 import { CreateAccountRequestBody, AdminRequestBody, LoginRequestBody, Token } from "./auth.interface";
 import { AuthService } from "./auth.service";
-import { HttpResponse } from "../interfaces/http.interface";
+import { HttpResponse } from "../interfaces/http-response.interface";
+import { ADMIN } from "../constants/env";
 
 export namespace AuthRouter {
   export const router = Router();
@@ -30,7 +31,7 @@ export namespace AuthRouter {
     const body = request.body as AdminRequestBody;
 
     const adminResponse: HttpResponse<boolean> = {
-      payload: body.email === process.env.ADMIN,
+      payload: body.email === ADMIN,
     }
 
     response.json(adminResponse);

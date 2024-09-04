@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { HttpResponse } from "../../interfaces/http.interface";
+import { HttpResponse } from "../../interfaces/http-response.interface";
 import { Destination } from "./destination.entity";
 import { DestinationService } from "./destination.service";
 import { isAdmin, isAuthenticated } from "../../auth/auth.middleware";
