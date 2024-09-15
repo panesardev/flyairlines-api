@@ -1,21 +1,30 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "dist",
     "sourceMap": true,
     "target": "esnext",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "commonjs",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "strict": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@auth/*": ["./src/auth/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@domains/*": ["./src/domains/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@utilities/*": ["./src/utilities/*"],
+    },
   },
   "include": [
     "./api/*.ts",
-    "./*.js",
-    "src/**/*.ts",
+    "./src/**/*.ts",
     "./index.ts"
   ],
 }

@@ -1,8 +1,8 @@
-export const enum AppErrorCode {
-  INVALID_ACCESS_TOKEN = 'invalid access token',
-}
-
-export const enum AuthErrorCode {
-  EMAIL_VERIFICATION = "email verification",
-  PASSWORD_RESET = "password reset",
+export const enum ErrorCode {
+  INVALID_TOKEN = 'invalid token',
+  EXPIRED_JWT = 'expired jwt',
+  UNAUTHORIZED = 'unauthorized',
+  ACCESS_DENIED = 'access denied',
+  INVALID_DATA = 'invalid data',
+  INTERNAL_SERVER_ERROR = 'internal server error',
 }

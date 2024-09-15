@@ -7,8 +7,8 @@ import { UserService } from "./user.service";
 export namespace UserRouter {
   export const router = Router();
 
-  router.get('/:id', isAuthenticated, isOwner, async (request: Request, response: Response) => {
-    const id: User['id'] = Number(request.params.id);
+  router.get('/:id', isAuthenticated(), isOwner(), async (request: Request, response: Response) => {
+    const id: User['id'] = Number(request.params.id);    
 
     const userResponse: HttpResponse<User> = await UserService.findById(id)
       .then(user => ({ payload: user, errored: false }))
@@ -17,7 +17,7 @@ export namespace UserRouter {
     response.json(userResponse);
   });
   
-  router.patch('/:id', isAuthenticated, isOwner, async (request: Request, response: Response) => {
+  router.patch('/:id', isAuthenticated(), isOwner(), async (request: Request, response: Response) => {
     const user: User = request.body as User;
 
     const userResponse: HttpResponse<User> = await UserService.update(user)
@@ -27,7 +27,7 @@ export namespace UserRouter {
     response.json(userResponse);
   });
   
-  router.delete('/:id', isAuthenticated, isOwner, async (request: Request, response: Response) => {
+  router.delete('/:id', isAuthenticated(), isOwner(), async (request: Request, response: Response) => {
     const id: number = Number(request.params.id);
 
     const deleteResponse: HttpResponse<boolean> = await UserService.remove(id)
