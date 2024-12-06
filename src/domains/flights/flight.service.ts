@@ -1,6 +1,6 @@
 import { DeleteResult } from "typeorm";
 import { Flight } from "./flight.entity";
-import { FlightRepository } from './flight.repository';
+import { FlightRepository } from "../../config/db";
 
 export namespace FlightService {
   export async function findById(id: Flight['id']): Promise<Flight> {

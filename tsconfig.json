@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "dist",
     "sourceMap": true,
     "target": "esnext",
@@ -13,14 +12,6 @@
     "noImplicitAny": true,
     "strict": false,
     "skipLibCheck": true,
-    "paths": {
-      "@auth/*": ["./src/auth/*"],
-      "@constants/*": ["./src/constants/*"],
-      "@domains/*": ["./src/domains/*"],
-      "@interfaces/*": ["./src/interfaces/*"],
-      "@middlewares/*": ["./src/middlewares/*"],
-      "@utilities/*": ["./src/utilities/*"],
-    },
   },
   "include": [
     "./api/*.ts",

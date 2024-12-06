@@ -1,5 +1,4 @@
-require('dotenv').config();
-
+import 'dotenv/config';
 import { PORT } from './src/constants/env';
 import { server } from './src/server';
 

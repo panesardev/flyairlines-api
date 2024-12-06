@@ -20,14 +20,14 @@ export const adminSchema = z.object({
   email: z.string().email().min(5),
 });
 
-export function validateLoginRequest(body: LoginRequestBody): LoginRequestBody {
+export function validateLogin(body: LoginRequestBody): LoginRequestBody {
   return loginSchema.parse(body) as LoginRequestBody;
 }
 
-export function validateCreateAccountRequest(body: CreateAccountRequestBody): CreateAccountRequestBody {
+export function validateCreateAccount(body: CreateAccountRequestBody): CreateAccountRequestBody {
   return createAccountSchema.parse(body) as CreateAccountRequestBody;
 }
 
-export function validateAdminRequest(body: AdminRequestBody): AdminRequestBody {
+export function validateAdmin(body: AdminRequestBody): AdminRequestBody {
   return adminSchema.parse(body) as AdminRequestBody;
 }

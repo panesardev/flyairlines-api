@@ -2,7 +2,7 @@ import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import { AppDataSource } from './database';
+import { AppDataSource } from './config/db';
 import { errorHandler } from './middlewares/error-handler';
 import { logger } from './middlewares/logger';
 import { router } from './router';
@@ -20,8 +20,7 @@ server.use('/api', router);
 
 server.use(errorHandler());
 
-AppDataSource.initialize()
-  .catch(e => console.error(e));
+AppDataSource.initialize();
 
 export { server };
 

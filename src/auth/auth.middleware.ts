@@ -1,32 +1,27 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken';
 import { ExtendedJwtPayload } from "../auth/auth.interface";
-import { UserService } from "../domains/users/user.service";
 import { ADMIN, JWT_SECRET } from "../constants/env";
-import { HttpError } from "../interfaces/http-error.interface";
 import { HttpCode } from "../constants/http-codes";
-import { ErrorCode } from "../constants/error-codes";
+import { UserService } from "../domains/users/user.service";
+import { HttpError } from "../interfaces/http.interface";
 
 export function isAuthenticated() {
   return (request: Request, response: Response, next: NextFunction) => {
     const authHeader = request.headers.authorization;
     
     if (!authHeader || !authHeader.startsWith('Bearer')) {
-      throw new HttpError(HttpCode.UNAUTHORIZED, ErrorCode.UNAUTHORIZED);
-      // return response.status(401).json({ message: 'unauthorized' });
+      throw new HttpError(HttpCode.UNAUTHORIZED, 'unauthorized');
     }
     
     const token = authHeader.split(' ')[1];
   
     try {
-      request.body.decoded = jwt.verify(token, JWT_SECRET) as ExtendedJwtPayload;
-      
+      request.body.decoded = jwt.verify(token, JWT_SECRET);
       next();
     } 
     catch (e) {
-      console.log('[ERROR] auth.middleware.ts: ', e.message);
-      throw new HttpError(HttpCode.UNAUTHORIZED, ErrorCode.EXPIRED_JWT);
-      // return response.status(401).json({ message: e.message });
+      throw new HttpError(HttpCode.UNAUTHORIZED, e.message);
     }
   }
 }
@@ -35,13 +30,15 @@ export function isOwner() {
   return (request: Request, response: Response, next: NextFunction) => {
     const decoded = request.body.decoded as ExtendedJwtPayload;
     
+    if (!decoded) {
+      throw new HttpError(HttpCode.UNAUTHORIZED, 'unauthorized');
+    }
+  
     if (decoded && decoded.userId === Number(request.params.id)) {
-      next();
+      return next();
     }
-    else {
-      throw new HttpError(HttpCode.FORBIDDEN, ErrorCode.ACCESS_DENIED);
-      // return response.status(403).json({ message: 'forbidden' });
-    }
+
+    throw new HttpError(HttpCode.FORBIDDEN, 'forbidden');
   } 
 }
 
@@ -50,15 +47,13 @@ export function isAdmin() {
     const decoded = request.body.decoded as ExtendedJwtPayload;
   
     if (!decoded) {
-      throw new HttpError(HttpCode.FORBIDDEN, ErrorCode.ACCESS_DENIED);
-      // return response.status(403).json({ message: 'Forbidden' });
+      throw new HttpError(HttpCode.UNAUTHORIZED, 'unauthorized');
     }
   
     const user = await UserService.findById(decoded.userId);
   
     if (user.email !== ADMIN) {
-      throw new HttpError(HttpCode.FORBIDDEN, ErrorCode.ACCESS_DENIED);
-      // return response.status(403).json({ message: 'Forbidden' });
+      throw new HttpError(HttpCode.FORBIDDEN, 'forbidden');
     }
   
     next();

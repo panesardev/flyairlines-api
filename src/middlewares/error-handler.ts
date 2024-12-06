@@ -1,7 +1,5 @@
-import { ErrorCode } from "@constants/error-codes";
-import { HttpCode } from "@constants/http-codes";
-import { HttpResponse } from "@interfaces/http-response.interface";
-import { HttpError } from "../interfaces/http-error.interface";
+import { HttpCode } from "../constants/http-codes";
+import { HttpError, HttpResponse } from "../interfaces/http.interface";
 import { ErrorRequestHandler, Response } from "express";
 import { ZodError } from 'zod';
 
@@ -17,7 +15,7 @@ export function errorHandler(): ErrorRequestHandler {
 
     const errorResponse: HttpResponse<null> = {
       status: HttpCode.INTERNAL_SERVER_ERROR,
-      message: ErrorCode.INTERNAL_SERVER_ERROR,
+      message: 'internal server error',
       errored: true,
       payload: null,
     };
@@ -34,7 +32,7 @@ function handleZodError(response: Response, error: ZodError) {
 
   const errorResponse: HttpResponse<typeof errors> = {
     status: HttpCode.BAD_REQUEST,
-    message: ErrorCode.INVALID_DATA,
+    message: 'data validation error',
     errored: true,
     payload: errors,
   };
