@@ -1,3 +1,4 @@
+import 'dotenv/config';
 // keep this file in sync with .env
 
 export const PORT = process.env.PORT;
